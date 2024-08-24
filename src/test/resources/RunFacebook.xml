@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Facebook">
+
+    <parameter name="url" value="https://www.facebook1.com/"></parameter>
+
+    <listeners>
+        <listener class-name="commons.MethodListener"></listener>
+        <!--<listener class-name="reportConfigs.AllureTestListener"></listener>-->
+        <!--<listener class-name="reportConfigs.ExtentTestListener"></listener>-->
+    </listeners>
+
+    <test name="Run on Firefox">
+        <parameter name="browser" value="firefox"></parameter>
+        <classes>
+            <class name="com.facebook.home.Level_16_Element_Undisplayed" >
+
+            </class>
+        </classes>
+    </test>
+
+
+
+   <!-- <test name="Run on Chrome">
+        <parameter name="browser" value="chrome"></parameter>
+        <classes>
+            &lt;!&ndash; <class name="com.nopcommerce.account.Level_07_Switch_Page_Url" /> &ndash;&gt;
+
+            <class name="com.nopcommerce.account.Level_09_Rest_Params"/>
+        </classes>
+    </test>-->
+
+
+   <!-- <test name="Run on Edge">
+        <parameter name="browser" value="edge"></parameter>
+        <classes>
+            <class name="com.nopcommerce.account.Level_04_Multiple_Browsers" />
+        </classes>
+    </test>-->
+</suite>

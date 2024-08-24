@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="NopCommerce">
+
+    <parameter name="adminUrl" value="https://admin-demo.nopcommerce.com/"></parameter>
+    <parameter name="userUrl" value="https://demo.nopcommerce.com/"></parameter>
+    
+    <listeners>
+        <!--<listener class-name="commons.MethodListener"></listener>-->
+        <!--<listener class-name="reportConfigs.AllureTestListener"></listener>-->
+        <!--<listener class-name="reportConfigs.ExtentTestListener"></listener>-->
+    </listeners>
+
+    <test name="Run on Firefox" preserve-order="true">
+        <parameter name="browser" value="firefox"></parameter>
+        <classes>
+            <class name="com.nopcommerce.share.Common_Register" />
+
+            <class name="com.nopcommerce.share.Product_Detail" />
+            <class name="com.nopcommerce.share.Payment" />
+
+        </classes>
+    </test>
+
+
+
+   <!-- <test name="Run on Chrome">
+        <parameter name="browser" value="chrome"></parameter>
+        <classes>
+            &lt;!&ndash; <class name="com.nopcommerce.account.Level_07_Switch_Page_Url" /> &ndash;&gt;
+
+            <class name="com.nopcommerce.account.Level_09_Rest_Params"/>
+        </classes>
+    </test>-->
+
+
+   <!-- <test name="Run on Edge">
+        <parameter name="browser" value="edge"></parameter>
+        <classes>
+            <class name="com.nopcommerce.account.Level_04_Multiple_Browsers" />
+        </classes>
+    </test>-->
+</suite>

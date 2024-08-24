@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Data Table">
+    <parameter name="url" value="https://www.jqueryscript.net/demo/CRUD-Data-Grid-Plugin-jQuery-Quickgrid/"></parameter>
+    <test name="Run on Chrome">
+        <parameter name="browser" value="firefox"></parameter>
+        <classes>
+            <class name="com.jquery.upload.Level_11_Upload_Files">
+
+               <!-- <methods >
+                    <include name="TC_06_Action_By_Index" />
+                </methods>-->
+            </class>
+
+        </classes>
+    </test>
+
+
+</suite>
