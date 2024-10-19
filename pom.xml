@@ -148,7 +148,7 @@
                 <configuration>
                     <!-- Run TestNG xml file -->
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/runNopCommerceUser.xml</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/RunOrangeHRM.xml</suiteXmlFile>
                     </suiteXmlFiles>
 
                     <!-- Argument -->

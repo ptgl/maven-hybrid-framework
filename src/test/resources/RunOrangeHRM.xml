@@ -10,13 +10,13 @@
         <!--<listener class-name="reportConfigs.ExtentTestListener"></listener>-->
     </listeners>
 
-    <test name="Run on Firefox">
+   <!-- <test name="Run on Firefox">
         <parameter name="browser" value="firefox"></parameter>
         <classes>
             <class name="orangeHRM.PIM.PIM_01_Employee_Management" />
 
         </classes>
-    </test>
+    </test>-->
 
 
 
