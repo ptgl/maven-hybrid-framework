@@ -311,6 +311,9 @@ public class BasePage {
     public Object executeForBrowserByJS(WebDriver driver, String javaScript) {
         return ((JavascriptExecutor) driver).executeScript(javaScript);
     }
+    public Object executeOnElementByJS(WebDriver driver, String javaScript, String locator) {
+        return ((JavascriptExecutor) driver).executeScript(javaScript, getWebElement(driver, locator));
+    }
 
     public String getInnerTextByJS(WebDriver driver) {
         return (String) ((JavascriptExecutor) driver).executeScript("return document.documentElement.innerText;");

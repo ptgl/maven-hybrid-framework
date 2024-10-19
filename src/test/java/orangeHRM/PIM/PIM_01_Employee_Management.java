@@ -1,5 +1,6 @@
 package orangeHRM.PIM;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import commons.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -7,15 +8,19 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageObjects.orangeHRM.DashboardPageObject;
-import pageObjects.orangeHRM.LoginPageObject;
-import pageObjects.orangeHRM.PageGeneratorManager;
+import pageObjects.orangeHRM.*;
 
 public class PIM_01_Employee_Management extends BaseTest {
 
     private WebDriver driver;
     private LoginPageObject loginPage;
     private DashboardPageObject dashboardPage;
+    private EmployeeListPageObject employeeListPage;
+    private AddEmployeePageObject addEmployeePage;
+    String employeeId;
+    String firstName = "Harry";
+    String lastName = "Potter";
+    String middleName = "James";
 
     @Parameters({"browser","url"})
     @BeforeClass
@@ -36,9 +41,23 @@ public class PIM_01_Employee_Management extends BaseTest {
     }
     @Test
     public void Employee_01_Add_new_employee(){
-        dashboardPage.clickMenuItemLink("PIM");
-        Assert.assertEquals(dashboardPage.getHeaderTitle(), "PIM");
+        dashboardPage.clickSidebarMenuItemLink("PIM");
+        employeeListPage = PageGeneratorManager.getEmployeeListPage(driver);
 
+        Assert.assertEquals(employeeListPage.getHeaderTitle(), "PIM");
+        Assert.assertEquals(employeeListPage.getActiveTopbarItem(), "Employee List");
+
+        addEmployeePage = employeeListPage.clickAddButton();
+
+        addEmployeePage.enterEmployeeFullName(firstName, middleName, lastName);
+        employeeId = addEmployeePage.getEmployeeId();
+        System.out.println(employeeId);
+        addEmployeePage.turnOnCreateLoginDetails();
+        addEmployeePage.enterUsername();
+        addEmployeePage.enterPassword();
+        addEmployeePage.enterConfirmPassword();
+
+        addEmployeePage.clickSaveButton();
 
 
     }
