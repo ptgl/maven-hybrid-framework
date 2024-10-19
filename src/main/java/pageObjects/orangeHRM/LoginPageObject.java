@@ -20,8 +20,9 @@ public class LoginPageObject extends BasePage {
         sendKeyToElement(driver, LoginPageUI.PASSWORD_TEXTBOX, pass);
     }
 
-    public void clickLoginButton(){
+    public DashboardPageObject clickLoginButton(){
         waitForElementVisible(driver, LoginPageUI.LOGIN_BUTTON);
         clickToElement(driver, LoginPageUI.LOGIN_BUTTON);
+        return PageGeneratorManager.getDashboardPage(driver);
     }
 }
