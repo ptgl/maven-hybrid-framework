@@ -21,6 +21,8 @@ public class PIM_01_Employee_Management extends BaseTest {
     String firstName = "Harry";
     String lastName = "Potter";
     String middleName = "James";
+    String username = "Yuki Hanako";
+    String password = "K@talon2024";
 
     @Parameters({"browser","url"})
     @BeforeClass
@@ -31,8 +33,8 @@ public class PIM_01_Employee_Management extends BaseTest {
 
     @Test
     public void Employee_00_Login_Success(){
-        loginPage.enterToUserNameTextbox("Admin");
-        loginPage.enterToPasswordTextbox("admin123");
+        loginPage.enterToUserNameTextbox("admin");
+        loginPage.enterToPasswordTextbox("T8#kL9@wQ3zX!p");
         dashboardPage = loginPage.clickLoginButton();
 
         Assert.assertEquals(dashboardPage.getHeaderTitle(), "Dashboard");
@@ -48,16 +50,22 @@ public class PIM_01_Employee_Management extends BaseTest {
         Assert.assertEquals(employeeListPage.getActiveTopbarItem(), "Employee List");
 
         addEmployeePage = employeeListPage.clickAddButton();
+        addEmployeePage.isPageLoadedSuccess();
+        Assert.assertEquals(employeeListPage.getActiveTopbarItem(), "Add Employee");
 
         addEmployeePage.enterEmployeeFullName(firstName, middleName, lastName);
         employeeId = addEmployeePage.getEmployeeId();
         System.out.println(employeeId);
         addEmployeePage.turnOnCreateLoginDetails();
-        addEmployeePage.enterUsername();
-        addEmployeePage.enterPassword();
-        addEmployeePage.enterConfirmPassword();
+        addEmployeePage.enterUsername(username);
+        addEmployeePage.enterPassword(password);
+        addEmployeePage.enterConfirmPassword(password);
 
-        addEmployeePage.clickSaveButton();
+        employeeListPage = addEmployeePage.clickSaveButton();
+        employeeListPage.isPageLoadedSuccess();
+        Assert.assertEquals(employeeListPage.getActiveTopbarItem(), "Employee List");
+
+        Assert.assertEquals(employeeListPage.getEmployeeNameHeader(), firstName+" "+lastName);
 
 
     }

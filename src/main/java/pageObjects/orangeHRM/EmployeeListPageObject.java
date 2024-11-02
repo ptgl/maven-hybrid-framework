@@ -15,4 +15,8 @@ public class EmployeeListPageObject extends CommonElement{
         clickToElement(driver, EmployeeListPageUI.ADD_BUTTON);
         return PageGeneratorManager.getAddEmployeePage(driver);
     }
+
+    public String getEmployeeNameHeader() {
+        return getElementText(driver, EmployeeListPageUI.NAME_HEADER );
+    }
 }

@@ -27,17 +27,41 @@ public class AddEmployeePageObject extends CommonElement{
     }
 
     public void turnOnCreateLoginDetails() {
+        if(!isCheckboxSelected()){
+            clickToElement(driver, AddEmployeePageUI.CREATE_LOGIN_DETAIL_CHECKBOX);
+        }
+
     }
 
-    public void enterUsername() {
+    public void turnOffCreateLoginDetails() {
+        if(isCheckboxSelected()){
+            clickToElement(driver, AddEmployeePageUI.CREATE_LOGIN_DETAIL_CHECKBOX);
+        }
+
     }
 
-    public void enterPassword() {
+    public void enterUsername(String username) {
+        waitForElementVisible(driver, AddEmployeePageUI.USERNAME_TEXTBOX);
+        sendKeyToElement(driver, AddEmployeePageUI.USERNAME_TEXTBOX, username);
     }
 
-    public void enterConfirmPassword() {
+    public void enterPassword(String password) {
+        waitForElementVisible(driver, AddEmployeePageUI.PASSWORD_TEXTBOX);
+        sendKeyToElement(driver, AddEmployeePageUI.PASSWORD_TEXTBOX, password);
     }
 
-    public void clickSaveButton() {
+    public void enterConfirmPassword(String password) {
+        waitForElementVisible(driver, AddEmployeePageUI.CONFIRM_PASSWORD_TEXTBOX);
+        sendKeyToElement(driver, AddEmployeePageUI.CONFIRM_PASSWORD_TEXTBOX, password);
+    }
+
+    public EmployeeListPageObject clickSaveButton() {
+        waitForElementClickable(driver, AddEmployeePageUI.SAVE_BUTTON);
+        clickToElement(driver, AddEmployeePageUI.SAVE_BUTTON);
+        return PageGeneratorManager.getEmployeeListPage(driver);
+    }
+
+    private boolean isCheckboxSelected(){
+     return  (boolean) executeForBrowserByJS(driver, "return !!document.querySelector('input[type=checkbox]:checked')");
     }
 }
