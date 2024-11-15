@@ -55,10 +55,9 @@ public class PIM_01_Employee_Management extends BaseTest {
         addEmployeePage = employeeListPage.clickAddButton();
         addEmployeePage.isPageLoadedSuccess();
         Assert.assertEquals(employeeListPage.getActiveTopbarItem(), "Add Employee");
+        this.employeeId = addEmployeePage.getEmployeeId();
 
         addEmployeePage.enterEmployeeFullName(firstName, middleName, lastName);
-        this.employeeId = addEmployeePage.getEmployeeId();
-        System.out.println(employeeId);
         addEmployeePage.turnOnCreateLoginDetails();
         addEmployeePage.enterUsername(username);
         addEmployeePage.enterPassword(password);
@@ -85,7 +84,7 @@ public class PIM_01_Employee_Management extends BaseTest {
     public void Employee_02_Search_employee(){
         personalDetailsPage.clickTopbarItem("Employee List");
         employeeListPage = PageGeneratorManager.getEmployeeListPage(driver);
-        System.out.println(this.employeeId);
+        employeeListPage.isPageLoadedSuccess();
         employeeListPage.inputEmployeeId(this.employeeId);
         employeeListPage.clickSearchButton();
 
