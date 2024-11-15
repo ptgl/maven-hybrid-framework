@@ -5,6 +5,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageUIs.orangeHRM.AddEmployeePageUI;
 import pageUIs.orangeHRM.CommonElementUI;
 
 import java.time.Duration;
@@ -31,7 +32,10 @@ public class CommonElement extends BasePage {
         waitForElementVisible(driver, CommonElementUI.SIDEBAR_MENU_ITEM_LINK, itemName);
         clickToElement(driver, CommonElementUI.SIDEBAR_MENU_ITEM_LINK, itemName);
     }
-
+    public void clickTopbarItem(String itemName){
+        waitForElementVisible(driver, CommonElementUI.TOPBAR_ITEM_LINK, itemName);
+        clickToElement(driver, CommonElementUI.TOPBAR_ITEM_LINK, itemName);
+    }
     public String getActiveTopbarItem(){
         waitForElementVisible(driver, CommonElementUI.ACTIVE_TOPBAR_ITEM_LINK_TEXT);
         return getElementText(driver, CommonElementUI.ACTIVE_TOPBAR_ITEM_LINK_TEXT);
@@ -46,6 +50,10 @@ public class CommonElement extends BasePage {
                 return isElementUnDisplayed(driver, CommonElementUI.LOADING_SPINNER);
             }
         });
+    }
+
+    public String getTextboxValue(String locator){
+        return executeOnElementByJS(driver,"return arguments[0]._value", locator).toString();
     }
 
 }

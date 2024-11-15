@@ -16,7 +16,21 @@ public class EmployeeListPageObject extends CommonElement{
         return PageGeneratorManager.getAddEmployeePage(driver);
     }
 
-    public String getEmployeeNameHeader() {
-        return getElementText(driver, EmployeeListPageUI.NAME_HEADER );
+    public void clickSearchButton(){
+        waitForElementClickable(driver, EmployeeListPageUI.SEARCH_BUTTON);
+        clickToElement(driver, EmployeeListPageUI.SEARCH_BUTTON);
+    }
+
+    public void inputEmployeeId(String employeeId) {
+        waitForElementVisible(driver, EmployeeListPageUI.EMPLOYEE_ID_TEXTBOX);
+        sendKeyToElement(driver, EmployeeListPageUI.EMPLOYEE_ID_TEXTBOX, employeeId);
+    }
+
+    public boolean isRecordFound(int numberFound){
+        return isElementDisplayed(driver, EmployeeListPageUI.RECORD_FOUND_TEXT,  String.valueOf(numberFound));
+    }
+
+    public boolean isUserRecordFoundById(String employeeId){
+        return isElementDisplayed(driver, EmployeeListPageUI.EMPLOYEE_ID_CELL, employeeId);
     }
 }

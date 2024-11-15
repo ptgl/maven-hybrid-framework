@@ -23,7 +23,7 @@ public class AddEmployeePageObject extends CommonElement{
 
     public String getEmployeeId() {
         waitForElementVisible(driver, AddEmployeePageUI.EMPLOYEE_ID_TEXTBOX);
-        return executeOnElementByJS(driver,"return arguments[0]._value", AddEmployeePageUI.EMPLOYEE_ID_TEXTBOX).toString();
+        return getTextboxValue(AddEmployeePageUI.EMPLOYEE_ID_TEXTBOX);
     }
 
     public void turnOnCreateLoginDetails() {
@@ -55,10 +55,10 @@ public class AddEmployeePageObject extends CommonElement{
         sendKeyToElement(driver, AddEmployeePageUI.CONFIRM_PASSWORD_TEXTBOX, password);
     }
 
-    public EmployeeListPageObject clickSaveButton() {
+    public PersonalDetailsPageObject clickSaveButton() {
         waitForElementClickable(driver, AddEmployeePageUI.SAVE_BUTTON);
         clickToElement(driver, AddEmployeePageUI.SAVE_BUTTON);
-        return PageGeneratorManager.getEmployeeListPage(driver);
+        return PageGeneratorManager.getPersonalDetailsPage(driver);
     }
 
     private boolean isCheckboxSelected(){
