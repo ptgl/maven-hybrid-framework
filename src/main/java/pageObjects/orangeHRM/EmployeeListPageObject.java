@@ -21,6 +21,12 @@ public class EmployeeListPageObject extends CommonElement{
         clickToElement(driver, EmployeeListPageUI.SEARCH_BUTTON);
     }
 
+    public PersonalDetailsPageObject clickEmployeeId(String employeeId){
+        waitForElementClickable(driver, EmployeeListPageUI.EMPLOYEE_ID_CELL, employeeId);
+        clickToElement(driver, EmployeeListPageUI.EMPLOYEE_ID_CELL, employeeId);
+        return PageGeneratorManager.getPersonalDetailsPage(driver);
+    }
+
     public void inputEmployeeId(String employeeId) {
         waitForElementVisible(driver, EmployeeListPageUI.EMPLOYEE_ID_TEXTBOX);
         sendKeyToElement(driver, EmployeeListPageUI.EMPLOYEE_ID_TEXTBOX, employeeId);

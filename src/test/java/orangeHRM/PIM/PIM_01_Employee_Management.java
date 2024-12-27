@@ -2,6 +2,7 @@ package orangeHRM.PIM;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import commons.BaseTest;
+import constants.OrangeHRMConstants.PIMSidebar;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -9,6 +10,10 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageObjects.orangeHRM.*;
+import utilities.FakerConfig;
+import utilities.Utilities;
+
+import static constants.OrangeHRMConstants.HomePageSidebar.PIM;
 
 public class PIM_01_Employee_Management extends BaseTest {
 
@@ -19,17 +24,20 @@ public class PIM_01_Employee_Management extends BaseTest {
     private AddEmployeePageObject addEmployeePage;
     private PersonalDetailsPageObject personalDetailsPage;
     String employeeId;
-    String firstName = "Harry";
-    String lastName = "Potter";
-    String middleName = "James";
-    String username = getRandomEmail();
-    String password = "K@talon2024";
+    String firstName,lastName,middleName,username,password;
 
     @Parameters({"browser","url"})
     @BeforeClass
     public void beforeClass(String browserName, String url){
         driver = getBrowserDriver(browserName, url);
         loginPage = PageGeneratorManager.getLoginPage(driver);
+
+        FakerConfig faker = FakerConfig.getFaker();
+        firstName = faker.getFirstName();
+        lastName = faker.getLastName();
+        middleName = faker.getMidleName();
+        password = faker.getPassword();
+        username = faker.getEmail();
     }
 
     @Test
@@ -46,7 +54,7 @@ public class PIM_01_Employee_Management extends BaseTest {
     }
     @Test
     public void Employee_01_Add_new_employee(){
-        dashboardPage.clickSidebarMenuItemLink("PIM");
+        dashboardPage.clickSidebarMenuItemLink(PIM);
         employeeListPage = PageGeneratorManager.getEmployeeListPage(driver);
 
         Assert.assertEquals(employeeListPage.getHeaderTitle(), "PIM");
@@ -75,10 +83,7 @@ public class PIM_01_Employee_Management extends BaseTest {
 
     }
 
-    //@Test
-    public void Employee_02_Update_personal_details(){
 
-    }
 
     @Test
     public void Employee_02_Search_employee(){
@@ -91,6 +96,12 @@ public class PIM_01_Employee_Management extends BaseTest {
         Assert.assertTrue(employeeListPage.isRecordFound(1));
         Assert.assertTrue(employeeListPage.isUserRecordFoundById(employeeId));
 
+    }
+
+    @Test
+    public void Employee_03_Update_personal_details(){
+        personalDetailsPage = employeeListPage.clickEmployeeId(this.employeeId);
+        personalDetailsPage.clickSidebarMenuItemLink(PIMSidebar.CONTACT_DETAILS);
 
     }
 

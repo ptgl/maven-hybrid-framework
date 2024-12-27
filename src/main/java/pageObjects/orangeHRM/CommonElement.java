@@ -1,6 +1,8 @@
 package pageObjects.orangeHRM;
 
 import commons.BasePage;
+import constants.OrangeHRMConstants.HomePageSidebar;
+import constants.OrangeHRMConstants.PIMSidebar;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -28,9 +30,14 @@ public class CommonElement extends BasePage {
         return getElementText(driver, CommonElementUI.ACTIVE_SIDEBAR_MENU_ITEM_TEXT);
     }
 
-    public void clickSidebarMenuItemLink(String itemName){
-        waitForElementVisible(driver, CommonElementUI.SIDEBAR_MENU_ITEM_LINK, itemName);
-        clickToElement(driver, CommonElementUI.SIDEBAR_MENU_ITEM_LINK, itemName);
+    public void clickSidebarMenuItemLink(HomePageSidebar itemName){
+        waitForElementVisible(driver, CommonElementUI.SIDEBAR_MENU_ITEM_LINK, itemName.name);
+        clickToElement(driver, CommonElementUI.SIDEBAR_MENU_ITEM_LINK, itemName.name);
+    }
+
+    public void clickSidebarMenuItemLink(PIMSidebar itemName){
+        waitForElementVisible(driver, CommonElementUI.EMPLOYEE_SIDEBAR_MENU_ITEM_LINK, itemName.name);
+        clickToElement(driver, CommonElementUI.EMPLOYEE_SIDEBAR_MENU_ITEM_LINK, itemName.name);
     }
     public void clickTopbarItem(String itemName){
         waitForElementVisible(driver, CommonElementUI.TOPBAR_ITEM_LINK, itemName);
@@ -43,7 +50,6 @@ public class CommonElement extends BasePage {
 
     public boolean isPageLoadedSuccess(){
         WebDriverWait explicitWait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
         return explicitWait.until(new ExpectedCondition<Boolean>() {
             @Override
             public Boolean apply(WebDriver webDriver) {
