@@ -18,4 +18,8 @@ public class PageGeneratorManager {
     public static PersonalDetailsPageObject getPersonalDetailsPage(WebDriver driver){
         return new PersonalDetailsPageObject(driver);
     }
+
+    public static ContactDetailsPageObject getContactDetailsPage(WebDriver driver){
+        return new ContactDetailsPageObject(driver);
+    }
 }

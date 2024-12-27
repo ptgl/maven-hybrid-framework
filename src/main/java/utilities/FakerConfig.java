@@ -2,12 +2,14 @@ package utilities;
 
 import com.github.javafaker.Faker;
 
+import java.util.Locale;
+
 public class FakerConfig {
     Faker faker;
     String data;
 
     public FakerConfig(){
-        faker = new Faker();
+        faker = new Faker(Locale.ENGLISH);
     }
 
     public static FakerConfig getFaker(){
@@ -43,6 +45,37 @@ public class FakerConfig {
         printData(data);
         return data;
     }
+
+    public String getStreet(){
+        data = faker.address().streetAddress();
+        printData(data);
+        return data;
+    }
+
+    public String getState(){
+        data = faker.address().state();
+        printData(data);
+        return data;
+    }
+
+    public String getCity(){
+        data = faker.address().city();
+        printData(data);
+        return data;
+    }
+
+    public String getZip(){
+        data = faker.address().zipCode();
+        printData(data);
+        return data;
+    }
+
+    public String getPhone(String prefix){
+        data = faker.numerify(prefix+"#######");
+        printData(data);
+        return data;
+    }
+
 
     private void printData(String data){
         System.out.println(data);

@@ -194,7 +194,7 @@ public class BasePage {
 
     public void selectCustomDropdownByXpath(WebDriver driver, String parentXpath, String childTextXpath, String itemText){
         getWebElement(driver, parentXpath).click();
-        new WebDriverWait(driver, Duration.ofSeconds(longTimeout)).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(childTextXpath)));
+        new WebDriverWait(driver, Duration.ofSeconds(longTimeout)).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(childTextXpath.substring(6))));
         getWebElement(driver, childTextXpath+"[contains(text(),'"+itemText+"')]").click();
     }
 

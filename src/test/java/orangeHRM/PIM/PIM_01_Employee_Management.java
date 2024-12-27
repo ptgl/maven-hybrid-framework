@@ -23,8 +23,10 @@ public class PIM_01_Employee_Management extends BaseTest {
     private EmployeeListPageObject employeeListPage;
     private AddEmployeePageObject addEmployeePage;
     private PersonalDetailsPageObject personalDetailsPage;
+    private ContactDetailsPageObject contactDetailsPageObject;
     String employeeId;
     String firstName,lastName,middleName,username,password;
+    FakerConfig faker;
 
     @Parameters({"browser","url"})
     @BeforeClass
@@ -32,7 +34,7 @@ public class PIM_01_Employee_Management extends BaseTest {
         driver = getBrowserDriver(browserName, url);
         loginPage = PageGeneratorManager.getLoginPage(driver);
 
-        FakerConfig faker = FakerConfig.getFaker();
+        faker = FakerConfig.getFaker();
         firstName = faker.getFirstName();
         lastName = faker.getLastName();
         middleName = faker.getMidleName();
@@ -101,8 +103,42 @@ public class PIM_01_Employee_Management extends BaseTest {
     @Test
     public void Employee_03_Update_personal_details(){
         personalDetailsPage = employeeListPage.clickEmployeeId(this.employeeId);
-        personalDetailsPage.clickSidebarMenuItemLink(PIMSidebar.CONTACT_DETAILS);
 
+    }
+
+    @Test
+    public void Employee_04_Update_contact_details(){
+        personalDetailsPage.clickSidebarMenuItemLink(PIMSidebar.CONTACT_DETAILS);
+        contactDetailsPageObject = PageGeneratorManager.getContactDetailsPage(driver);
+        contactDetailsPageObject.isPageLoadedSuccess();
+
+        String otherEmail = faker.getEmail();
+        String workEmail = faker.getEmail();
+
+        String street1 = faker.getStreet();
+        String street2 = faker.getStreet();
+        String city = faker.getCity();
+        String state = faker.getState();
+        String zip = faker.getZip();
+
+        String homephone = faker.getPhone("089");
+        String mobile = faker.getPhone("099");
+        String workphone = faker.getPhone("028");
+
+        contactDetailsPageObject.enterStreet1(street1);
+        contactDetailsPageObject.enterStreet2(street2);
+        contactDetailsPageObject.enterCity(city);
+        contactDetailsPageObject.enterState(state);
+        contactDetailsPageObject.enterZip(zip);
+
+        contactDetailsPageObject.enterHomePhone(homephone);
+        contactDetailsPageObject.enterMobile(mobile);
+        contactDetailsPageObject.enterWorkPhone(workphone);
+
+        contactDetailsPageObject.enterWorkEmail(workEmail);
+        contactDetailsPageObject.enterOtherEmail(otherEmail);
+
+        contactDetailsPageObject.selectCountry("Viet Nam");
     }
 
     //@Test
