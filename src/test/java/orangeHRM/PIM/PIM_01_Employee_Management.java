@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageObjects.orangeHRM.*;
+import testData.OrangeHRMModel.EmployeeInfo;
 import utilities.FakerConfig;
 import utilities.Utilities;
 
@@ -24,9 +25,10 @@ public class PIM_01_Employee_Management extends BaseTest {
     private AddEmployeePageObject addEmployeePage;
     private PersonalDetailsPageObject personalDetailsPage;
     private ContactDetailsPageObject contactDetailsPageObject;
-    String employeeId;
-    String firstName,lastName,middleName,username,password;
-    FakerConfig faker;
+    //private String employeeId;
+    private EmployeeInfo employeeInfo;
+    //String firstName,lastName,middleName,username,password;
+    private FakerConfig faker;
 
     @Parameters({"browser","url"})
     @BeforeClass
@@ -35,11 +37,12 @@ public class PIM_01_Employee_Management extends BaseTest {
         loginPage = PageGeneratorManager.getLoginPage(driver);
 
         faker = FakerConfig.getFaker();
-        firstName = faker.getFirstName();
-        lastName = faker.getLastName();
-        middleName = faker.getMidleName();
-        password = faker.getPassword();
-        username = faker.getEmail();
+        employeeInfo = EmployeeInfo.getEmployeeInfo();
+        employeeInfo.setFirstName(faker.getFirstName());
+        employeeInfo.setLastName(faker.getLastName());
+        employeeInfo.setMiddleName(faker.getMidleName());
+        employeeInfo.setPassword(faker.getPassword());
+        employeeInfo.setUsername(faker.getEmail());
     }
 
     @Test
@@ -65,23 +68,23 @@ public class PIM_01_Employee_Management extends BaseTest {
         addEmployeePage = employeeListPage.clickAddButton();
         addEmployeePage.isPageLoadedSuccess();
         Assert.assertEquals(employeeListPage.getActiveTopbarItem(), "Add Employee");
-        this.employeeId = addEmployeePage.getEmployeeId();
+        employeeInfo.setEmployeeId(addEmployeePage.getEmployeeId());
 
-        addEmployeePage.enterEmployeeFullName(firstName, middleName, lastName);
+        addEmployeePage.enterEmployeeFullName(employeeInfo.getFirstName(), employeeInfo.getMiddleName(), employeeInfo.getLastName());
         addEmployeePage.turnOnCreateLoginDetails();
-        addEmployeePage.enterUsername(username);
-        addEmployeePage.enterPassword(password);
-        addEmployeePage.enterConfirmPassword(password);
+        addEmployeePage.enterUsername(employeeInfo.getUsername());
+        addEmployeePage.enterPassword(employeeInfo.getPassword());
+        addEmployeePage.enterConfirmPassword(employeeInfo.getPassword());
 
         personalDetailsPage = addEmployeePage.clickSaveButton();
         personalDetailsPage.isPageLoadedSuccess();
         Assert.assertEquals(personalDetailsPage.getActiveTopbarItem(), "Employee List");
 
-        Assert.assertEquals(personalDetailsPage.getEmployeeNameHeader(), firstName+" "+lastName);
-        Assert.assertEquals(personalDetailsPage.getFirstNameTextboxValue(), firstName);
-        Assert.assertEquals(personalDetailsPage.getLastNameTextboxValue(), lastName);
-        Assert.assertEquals(personalDetailsPage.getMiddleNameTextboxValue(), middleName);
-        Assert.assertEquals(personalDetailsPage.getEmployeeIdTextboxValue(), employeeId);
+        Assert.assertEquals(personalDetailsPage.getEmployeeNameHeader(), employeeInfo.getFirstName()+" "+employeeInfo.getLastName());
+        Assert.assertEquals(personalDetailsPage.getFirstNameTextboxValue(), employeeInfo.getFirstName());
+        Assert.assertEquals(personalDetailsPage.getLastNameTextboxValue(), employeeInfo.getLastName());
+        Assert.assertEquals(personalDetailsPage.getMiddleNameTextboxValue(), employeeInfo.getMiddleName());
+        Assert.assertEquals(personalDetailsPage.getEmployeeIdTextboxValue(), employeeInfo.getEmployeeId());
 
     }
 
@@ -92,17 +95,17 @@ public class PIM_01_Employee_Management extends BaseTest {
         personalDetailsPage.clickTopbarItem("Employee List");
         employeeListPage = PageGeneratorManager.getEmployeeListPage(driver);
         employeeListPage.isPageLoadedSuccess();
-        employeeListPage.inputEmployeeId(this.employeeId);
+        employeeListPage.inputEmployeeId(employeeInfo.getEmployeeId());
         employeeListPage.clickSearchButton();
 
         Assert.assertTrue(employeeListPage.isRecordFound(1));
-        Assert.assertTrue(employeeListPage.isUserRecordFoundById(employeeId));
+        Assert.assertTrue(employeeListPage.isUserRecordFoundById(employeeInfo.getEmployeeId()));
 
     }
 
     @Test
     public void Employee_03_Update_personal_details(){
-        personalDetailsPage = employeeListPage.clickEmployeeId(this.employeeId);
+        personalDetailsPage = employeeListPage.clickEmployeeId(employeeInfo.getEmployeeId());
 
     }
 
@@ -139,6 +142,12 @@ public class PIM_01_Employee_Management extends BaseTest {
         contactDetailsPageObject.enterOtherEmail(otherEmail);
 
         contactDetailsPageObject.selectCountry("Viet Nam");
+
+        Assert.assertEquals(street1, contactDetailsPageObject.getStreet1TextboxValue()) ;
+        Assert.assertEquals(street2, contactDetailsPageObject.getStreet2TextboxValue()) ;
+        Assert.assertEquals(city, contactDetailsPageObject.getCityTextboxValue()) ;
+
+
     }
 
     //@Test
